@@ -1,4 +1,4 @@
-# BIG-IQ and Container Ingress Controler Intergration Quick Start Guide
+# BIG-IQ and CIS Intergration Quick Start Guide
 
 This page is created to document BIG-IQ with intergration of CIS and BIGIP. Please open issues on my github page on contact me at m.dittmer@f5.com. This intergration is experimental and for demo purposes.
 
