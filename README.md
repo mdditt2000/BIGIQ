@@ -3,6 +3,7 @@ This github page documents how to use BIG-IQ with CIS and some details on their 
 
 ## Setup view of CIS BIG-IQ Integration
 Below is a step by step representation of CIS and BIG-IQ integration setup:
+
 ![CIS BIG-IQ BIG-IP setup](images/CIS-AS3-BIQ-BIGIP-SETUP.png)
 
 ## API call flow between CIS, BIGIQ and BIGIP
