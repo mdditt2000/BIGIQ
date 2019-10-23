@@ -84,7 +84,7 @@ args: [
         # Replace with the IP address or hostname of your BIG-IP device
         "--bigip-url=192.168.200.82",
         # Replace with the name of the BIG-IP partition you want to manage
-        "--bigip-partition=openshift",
+        "--bigip-partition=k8s",
         "--pool-member-type=cluster",
         # Replace with the path to the BIG-IP VXLAN connected to the
         # OpenShift HostSubnet
