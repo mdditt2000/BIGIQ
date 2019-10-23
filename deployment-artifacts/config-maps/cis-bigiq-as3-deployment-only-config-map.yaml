@@ -1,0 +1,73 @@
+apiVersion: v1
+data:
+  template: |
+    {
+      "BIQ_AS3_DECLERATION": {
+        "applicationName": "CIS-BIQ-AS3-DEMO",
+        "applicationDescription": "CIS Integration with BIG IQ Demo Application",
+        "appSvcsDeclaration": {
+          "class": "AS3",
+          "persist": true,
+          "declaration": {
+            "class": "ADC",
+            "schemaVersion": "3.12.0",
+            "target": {
+              "address": "10.145.72.109"
+            },
+            "cis": {
+              "class": "Tenant",
+              "BIGIQAS3": {
+                "class": "Application",
+                "schemaOverlay": "TEST-AS3-BIQ-CIS-DEMO",
+                "template": "http",
+                "serviceMain": {
+                  "virtualPort": 80,
+                  "profileAnalytics": {
+                    "use": "Analytics_Profile"
+                  },
+                  "virtualAddresses": [
+                    "172.16.3.29"
+                  ],
+                  "pool": "Pool",
+                  "enable": true,
+                  "class": "Service_HTTP"
+                },
+                "Analytics_Profile": {
+                  "collectUserAgent": false,
+                  "collectClientSideStatistics": true,
+                  "collectGeo": false,
+                  "collectUrl": false,
+                  "collectPageLoadTime": false,
+                  "collectOsAndBrowser": false,
+                  "collectMethod": false,
+                  "collectResponseCode": true,
+                  "collectIp": false,
+                  "class": "Analytics_Profile"
+                },
+                "Pool": {
+                  "members": [
+                    {
+                      "servicePort": 8080,
+                      "adminState": "enable",
+                      "serverAddresses": []
+                    }
+                  ],
+                  "class": "Pool"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2019-09-16T15:32:46Z"
+  labels:
+    as3: "true"
+    f5type: virtual-server
+  name: as3-declaration
+  namespace: kube-system
+  resourceVersion: "7094224"
+  selfLink: /api/v1/namespaces/kube-system/configmaps/as3-declaration
+  uid: 3b701156-d897-11e9-b425-fa163ea825b2
