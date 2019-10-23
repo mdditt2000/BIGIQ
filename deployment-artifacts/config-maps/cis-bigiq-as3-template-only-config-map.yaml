@@ -1,0 +1,222 @@
+apiVersion: v1
+data:
+  template: |
+    {
+      "BIQ_AS3_TEMPLATE": {
+        "name": "TEST-AS3-BIQ-CIS-DEMO",
+        "published": true,
+        "description": "BIQ AS3 Template for CIS and BIG IQ Integration",
+        "schemaOverlay": {
+          "type": "object",
+          "properties": {
+            "class": {
+              "type": "string",
+              "const": "Application"
+            },
+            "template": {},
+            "schemaOverlay": {},
+            "label": {},
+            "remark": {}
+          },
+          "additionalProperties": {
+            "allOf": [
+              {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "class": {
+                        "const": "Analytics_Profile"
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "class": {
+                        "const": "Pool"
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "class": {
+                        "const": "Service_HTTP"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "if": {
+                  "properties": {
+                    "class": {
+                      "const": "Analytics_Profile"
+                    }
+                  }
+                },
+                "then": {
+                  "$ref": "#/definitions/Analytics_Profile"
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "class": {
+                      "const": "Pool"
+                    }
+                  }
+                },
+                "then": {
+                  "$ref": "#/definitions/Pool"
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "class": {
+                      "const": "Service_HTTP"
+                    }
+                  }
+                },
+                "then": {
+                  "$ref": "#/definitions/Service_HTTP"
+                }
+              }
+            ]
+          },
+          "required": [
+            "class"
+          ],
+          "definitions": {
+            "Analytics_Profile": {
+              "properties": {
+                "class": {},
+                "collectUserAgent": {
+                  "type": "boolean"
+                },
+                "collectClientSideStatistics": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "collectGeo": {
+                  "type": "boolean"
+                },
+                "collectUrl": {
+                  "type": "boolean"
+                },
+                "collectPageLoadTime": {
+                  "type": "boolean"
+                },
+                "collectOsAndBrowser": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "collectMethod": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "collectResponseCode": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "collectIp": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object",
+              "additionalproperties": false
+            },
+            "Pool": {
+              "properties": {
+                "class": {},
+                "members": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "servicePort": {
+                        "type": "number",
+                        "default": 80
+                      },
+                      "monitors": {
+                        "type": "array",
+                        "default": [
+                          "http"
+                        ],
+                        "const": [
+                          "http"
+                        ]
+                      },
+                      "adminState": {
+                        "type": "string",
+                        "default": "enable"
+                      },
+                      "shareNodes": {
+                        "type": "boolean",
+                        "default": true,
+                        "const": true
+                      },
+                      "serverAddresses": {
+                        "type": "array"
+                      }
+                    }
+                  }
+                },
+                "monitors": {
+                  "type": "array",
+                  "default": [
+                    "http"
+                  ],
+                  "const": [
+                    "http"
+                  ]
+                }
+              },
+              "type": "object",
+              "additionalproperties": false
+            },
+            "Service_HTTP": {
+              "properties": {
+                "class": {},
+                "virtualPort": {
+                  "type": "number",
+                  "default": 80
+                },
+                "profileAnalytics": {
+                  "type": "object",
+                  "properties": {
+                    "use": {
+                      "type": "string",
+                      "default": "Analytics_Profile"
+                    }
+                  }
+                },
+                "virtualAddresses": {
+                  "type": "array"
+                },
+                "pool": {
+                  "type": "string",
+                  "default": "Pool"
+                },
+                "enable": {
+                  "type": "boolean",
+                  "default": true
+                }
+              },
+              "type": "object",
+              "additionalproperties": false
+            }
+          }
+        }
+      }
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2019-09-16T15:32:46Z"
+  labels:
+    as3: "true"
+    f5type: virtual-server
+  name: as3-declaration
+  namespace: kube-system
+  resourceVersion: "7094224"
+  selfLink: /api/v1/namespaces/kube-system/configmaps/as3-declaration
+  uid: 3b701156-d897-11e9-b425-fa163ea825b2
