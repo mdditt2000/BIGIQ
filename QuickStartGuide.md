@@ -42,7 +42,7 @@ oc adm policy add-cluster-role-to-user cluster-admin -z bigip-ctlr -n kube-syste
        serviceAccountName: bigip-ctlr
        containers:
          - name: k8s-bigip-ctlr
-           image: "snatra27/k8s-bigip-ctlr:as3routes_path"
+           image: "snatra27/cis-k8s-ctlr-biq-as3:1.0"
            env:
              - name: BIGIP_USERNAME
                valueFrom:
