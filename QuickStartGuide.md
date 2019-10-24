@@ -10,7 +10,7 @@ Environment parameters:
 * K8s Version: 1.14
 * CIS Version: 1.11
 * AS3 Version: 3.13.1 LTS
-* BIG-IQ Version: 7.1
+* BIG-IQ Version: 7.0.0
 * BIG-IP Version: 14.1
 * Deployment Image: snatra27/cis-k8s-ctlr-biq-as3:1.0
 
