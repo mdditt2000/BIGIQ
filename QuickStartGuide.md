@@ -1,6 +1,6 @@
-# BIG-IQ and CIS Intergration Quick Start Guide
+# BIG-IQ and CIS Integration Quick Start Guide
 
-This page is created to document BIG-IQ intergration with CIS and BIGIP. Please open issues on my github page or contact me at m.dittmer@f5.com. This intergration is experimental and for demo purposes.
+**Note** This integration of **BIG-IQ and CIS** is for early field trials/experimental and demo purpose. We would like to get some feedback and potentially make improvements. The integration has not gone through regression testing. This page provides a how-to for BIG-IQ integration with CIS and BIG-IP implementation. Please open issues on my github page or contact me at m.dittmer@f5.com.
 
 # Note
 This document assumes the user already have a knowledge of setting up CIS Controller.
@@ -15,7 +15,7 @@ Environment parameters:
 * Deployment Image: snatra27/cis-k8s-ctlr-biq-as3:1.0
 
 ## Prerequisite
-Since we are using BIG-IQ, BIG-IQ will prepare the BIG-IP with AS3
+Since we are using BIG-IQ, BIG-IQ will install AS3 on BIG-IP
 
 ## Create BIG-IP, BIG-IQ credentials and RBAC Authentication
 ```
@@ -88,10 +88,9 @@ args: [
         "--pool-member-type=cluster",
         # Replace with the path to the BIG-IP VXLAN connected to the
         # OpenShift HostSubnet
-        "--openshift-sdn-name=/Common/openshift_vxlan",
+        "--flannel-name=fl-vxlan",
         "--manage-routes=true",
         "--namespace=f5demo",
-        "--route-vserver-addr=10.192.75.107",
         "--log-level=DEBUG",
         # Self-signed cert
         "--insecure=true",
@@ -101,8 +100,8 @@ args: [
 
 ## Create ConfigMap
 This config map contains both BIG-IQ AS3 template and BIG-IQ AS3 deployment.
-Users can modify the template according to their requirement and also users can remove the "BIQ_AS3_TEMPLATE" if already have preconfigured template available on BIG-IQ system. However, user must configure "BIQ_AS3_DECLERATION".
-and CIS will only supports single entry of "BIQ_AS3_DECLERATION" at this point of time.
+Users can modify the template according to their requirement and also users can remove the "BIQ_AS3_TEMPLATE" if already have pre-configured template available on BIG-IQ system. However, user must configure "BIQ_AS3_DECELERATION".
+and CIS will only supports single entry of "BIQ_AS3_DECELERATION" at this point of time.
 
 ```
 apiVersion: v1
