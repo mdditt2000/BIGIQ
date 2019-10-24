@@ -87,11 +87,7 @@ args: [
         "--bigip-partition=k8s",
         "--pool-member-type=cluster",
         # Replace with the path to the BIG-IP VXLAN connected to the
-        # OpenShift HostSubnet
         "--flannel-name=fl-vxlan",
-        "--manage-routes=true",
-        "--namespace=f5demo",
-        "--log-level=DEBUG",
         # Self-signed cert
         "--insecure=true",
         "--agent=as3"
