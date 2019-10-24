@@ -19,12 +19,12 @@ Since we are using BIG-IQ, BIG-IQ will install AS3 on BIG-IP
 
 ## Create BIG-IP, BIG-IQ credentials and RBAC Authentication
 ```
-oc create secret generic bigip-login --namespace kube-system --from-literal=username=admin --from-literal=password=f5PME123
-oc create secret generic bigiq-login --namespace kube-system --from-literal=username=admin --from-literal=password=f5PME123
-oc create serviceaccount bigip-ctlr -n kube-system
-oc create -f f5-kctlr-openshift-clusterrole.yaml
-oc create -f f5-k8s-bigip-ctlr-openshift.yaml
-oc adm policy add-cluster-role-to-user cluster-admin -z bigip-ctlr -n kube-system
+kubectl create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password=admin
+kubectl create secret generic bigiq-login -n kube-system --from-literal=username=admin --from-literal=password=admin
+kubectl create serviceaccount k8s-bigip-ctlr -n kube-system
+kubectl create clusterrolebinding k8s-bigip-ctlr-clusteradmin --clusterrole=cluster-admin --serviceaccount=kube-system:k8s-bigip-ctlr
+kubectl create -f f5-cluster-deployment.yaml
+kubectl create -f f5-bigip-node.yaml
 ```
 
 ## Create CIS Controller using below deployment snippet
