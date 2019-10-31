@@ -1,6 +1,5 @@
-#!/bin/bash
-
 #create kubernetes bigip container connecter, authentication and RBAC
+
 ```
 kubectl create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password=admin
 kubectl create secret generic bigiq-login -n kube-system --from-literal=username=admin --from-literal=password=admin
