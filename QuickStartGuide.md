@@ -17,6 +17,8 @@ Since we are using BIG-IQ, BIG-IQ will install AS3 on BIG-IP
 
 ## Create kubernetes bigip container ingress service
 
+Located the deployment file in the deployment-artifacts folder
+
 ## Create ConfigMap
 This config map contains both BIG-IQ AS3 template and BIG-IQ AS3 deployment.
 Users can modify the template according to their requirement and also users can remove the "BIQ_AS3_TEMPLATE" if already have pre-configured template available on BIG-IQ system. However, user must configure "BIQ_AS3_DECELERATION".
