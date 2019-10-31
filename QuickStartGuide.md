@@ -7,91 +7,21 @@ This document assumes the user already have a knowledge of setting up CIS Contro
 Please visit to F5 Cloud Docs for more information.
 
 Environment parameters:
-* K8s Version: 1.14
-* CIS Version: 1.11
-* AS3 Version: 3.13.1 LTS
+* K8s Version: 1.13
 * BIG-IQ Version: 7.0.0
-* BIG-IP Version: 14.1
-* Deployment Image: snatra27/cis-k8s-ctlr-biq-as3:1.0
+* BIG-IP Version: 13.1.1
+* CIS Image:: snatra27/cis-k8s-ctlr-biq-as3:1.0
 
 ## Prerequisite
 Since we are using BIG-IQ, BIG-IQ will install AS3 on BIG-IP
 
-## Create BIG-IP, BIG-IQ credentials and RBAC Authentication
+## Create kubernetes bigip container ingress service
 ```
-kubectl create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password=admin
-kubectl create secret generic bigiq-login -n kube-system --from-literal=username=admin --from-literal=password=admin
-kubectl create serviceaccount k8s-bigip-ctlr -n kube-system
-kubectl create clusterrolebinding k8s-bigip-ctlr-clusteradmin --clusterrole=cluster-admin --serviceaccount=kube-system:k8s-bigip-ctlr
-kubectl create -f f5-cluster-deployment.yaml
-kubectl create -f f5-bigip-node.yaml
-```
+GitHub/BIGIQ/deployment-artifacts/k8s-bigip-ctlr-deployment/create-k8s-bipip-ctlr-deployment.md
 
 ## Create CIS Controller using below deployment snippet
 ```
- spec:
-   replicas: 1
-   template:
-     metadata:
-       name: k8s-bigip-ctlr
-       labels:
-         app: k8s-bigip-ctlr
-     spec:
-       # Name of the Service Account bound to a Cluster Role with the required
-       # permissions
-       serviceAccountName: bigip-ctlr
-       containers:
-         - name: k8s-bigip-ctlr
-           image: "snatra27/cis-k8s-ctlr-biq-as3:1.0"
-           env:
-             - name: BIGIP_USERNAME
-               valueFrom:
-                 secretKeyRef:
-                   # Replace with the name of the Secret containing your login
-                   # credentials
-                   name: bigip-login
-                   key: username
-             - name: BIGIP_PASSWORD
-               valueFrom:
-                 secretKeyRef:
-                   # Replace with the name of the Secret containing your login
-                   # credentials
-                   name: bigip-login
-                   key: password
-             - name: BIGIQ_USERNAME
-               valueFrom:
-                 secretKeyRef:
-                   # Replace with the name of the Secret containing your login
-                   # credentials
-                   name: bigiq-login
-                   key: username
-             - name: BIGIQ_PASSWORD
-               valueFrom:
-                 secretKeyRef:
-                   # Replace with the name of the Secret containing your login
-                   # credentials
-                   name: bigiq-login
-                   key: password
-           command: ["/app/bin/k8s-bigip-ctlr"]
-args: [
-        # BIG IP Configs
-        "--bigip-username=$(BIGIP_USERNAME)",
-        "--bigip-password=$(BIGIP_PASSWORD)",
-        # BIG IQ Configs
-        "--bigiq-mode=true"
-        "--bigip-username=$(BIGIQ_USERNAME)",
-        "--bigip-password=$(BIGIQ_PASSWORD)",
-        # Replace with the IP address or hostname of your BIG-IP device
-        "--bigip-url=192.168.200.82",
-        # Replace with the name of the BIG-IP partition you want to manage
-        "--bigip-partition=k8s",
-        "--pool-member-type=cluster",
-        # Replace with the path to the BIG-IP VXLAN connected to the
-        "--flannel-name=fl-vxlan",
-        # Self-signed cert
-        "--insecure=true",
-        "--agent=as3"
-       ]
+View location of yaml
 ```
 
 ## Create ConfigMap

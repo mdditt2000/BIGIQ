@@ -1,4 +1,4 @@
-#create kubernetes bigip container connecter, authentication and RBAC
+# Create kubernetes bigip container ingress service
 
 ```
 kubectl create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password=admin
