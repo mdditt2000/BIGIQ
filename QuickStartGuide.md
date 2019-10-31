@@ -16,13 +16,6 @@ Environment parameters:
 Since we are using BIG-IQ, BIG-IQ will install AS3 on BIG-IP
 
 ## Create kubernetes bigip container ingress service
-```
-GitHub/BIGIQ/deployment-artifacts/k8s-bigip-ctlr-deployment/create-k8s-bipip-ctlr-deployment.md
-
-## Create CIS Controller using below deployment snippet
-```
-View location of yaml
-```
 
 ## Create ConfigMap
 This config map contains both BIG-IQ AS3 template and BIG-IQ AS3 deployment.
