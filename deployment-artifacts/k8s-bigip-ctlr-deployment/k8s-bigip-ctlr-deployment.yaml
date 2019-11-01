@@ -51,7 +51,7 @@
              # BIG IP Configs
              "--bigip-username=$(BIGIP_USERNAME)",
              "--bigip-password=$(BIGIP_PASSWORD)",
-             "--bigip-url=192.168.200.98",
+             "--bigip-url=10.192.75.98",
              # BIG IQ Configs
              "--bigiq-mode=true",
              "--bigip-username=$(BIGIQ_USERNAME)",

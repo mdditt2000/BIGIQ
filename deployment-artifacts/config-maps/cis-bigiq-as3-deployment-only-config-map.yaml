@@ -12,7 +12,7 @@ data:
             "class": "ADC",
             "schemaVersion": "3.12.0",
             "target": {
-              "address": "10.145.72.109"
+              "address": "10.192.75.98"
             },
             "cis": {
               "class": "Tenant",
@@ -26,7 +26,7 @@ data:
                     "use": "Analytics_Profile"
                   },
                   "virtualAddresses": [
-                    "172.16.3.29"
+                    "10.192.75.95"
                   ],
                   "pool": "Pool",
                   "enable": true,
