@@ -56,7 +56,7 @@
              "--bigiq-mode=true",
              "--bigip-username=$(BIGIQ_USERNAME)",
              "--bigip-password=$(BIGIQ_PASSWORD)",
-             "--bigiq-url=https://10.192.75.180/,
+             "--bigiq-url=https://10.192.75.180/",
              "--bigip-partition=k8s",
              "--pool-member-type=cluster",
              # Replace with the path to the BIG-IP VXLAN connected to the
