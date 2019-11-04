@@ -1,7 +1,6 @@
 ## Create kubernetes bigip container ingress service
 
 ```
-kubectl create -f k8s-bigip-clusterrole.yaml
 kubectl create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password=admin
 kubectl create secret generic bigiq-login -n kube-system --from-literal=username=admin --from-literal=password=admin
 kubectl create serviceaccount k8s-bigip-ctlr -n kube-system
