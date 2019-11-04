@@ -1,4 +1,3 @@
-# For use in OpenShift clusters
 apiVersion: v1
 kind: ClusterRole
 metadata:
