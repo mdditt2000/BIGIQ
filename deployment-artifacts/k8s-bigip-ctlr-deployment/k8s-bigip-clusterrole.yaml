@@ -1,0 +1,57 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+    name: bigip-ctlr-clusterrole
+rules:
+    -
+        apiGroups:
+            - ""
+            - extensions
+        resources:
+            - nodes
+            - services
+            - endpoints
+            - namespaces
+            - ingresses
+            - pods
+        verbs:
+            - get
+            - list
+            - watch
+    -
+        apiGroups:
+            - ""
+            - extensions
+        resources:
+            - configmaps
+            - events
+            - ingresses/status
+        verbs:
+            - get
+            - list
+            - watch
+            - update
+            - create
+            - patch
+    -
+        apiGroups:
+            - ""
+            - extensions
+        resources:
+            - secrets
+        resourceNames:
+            - '<secret-containing-bigip-login>'
+        verbs:
+            - get
+            - list
+            - watch
+roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: bigip-ctlr-clusterrole
+subjects:
+    -
+        apiGroup: ""
+        kind: ServiceAccount
+        name: bigip-ctlr
+        namespace: '<controller_namespace>'
