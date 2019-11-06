@@ -13,7 +13,7 @@
      spec:
        # Name of the Service Account bound to a Cluster Role with the required
        # permissions
-       serviceAccountName: bigip-ctlr
+       serviceAccountName: k8s-bigip-ctlr
        containers:
          - name: k8s-bigip-ctlr
            image: "snatra27/k8s-bigip-ctlr:cis-biq-bip-intg"

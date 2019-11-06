@@ -5,6 +5,7 @@ data:
       "BIQ_AS3_TEMPLATE": {
         "name": "TEST-AS3-BIQ-CIS-DEMO",
         "published": true,
+        "isUICompatible": true,
         "description": "BIQ AS3 Template for CIS and BIG IQ Integration",
         "schemaOverlay": {
           "type": "object",
