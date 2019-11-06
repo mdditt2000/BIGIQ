@@ -63,5 +63,4 @@
              "--flannel-name=fl-vxlan",
              # Self-signed cert
              "--insecure=true",
-             "--agent=as3",
             ]

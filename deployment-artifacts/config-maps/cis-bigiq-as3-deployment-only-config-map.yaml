@@ -14,7 +14,7 @@ data:
             "target": {
               "address": "10.192.75.98"
             },
-            "cis": {
+            "k8s": {
               "class": "Tenant",
               "BIGIQAS3": {
                 "class": "Application",
