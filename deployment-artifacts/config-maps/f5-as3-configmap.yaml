@@ -15,7 +15,10 @@ data:
             "schemaVersion": "3.13.0",
             "id": "urn:uuid:33045210-3ab8-4636-9b2a-c98d22ab915d",
             "label": "End to end SSL with WAF",
-            "remark": "A1-5 Template",
+            "remark": "s3-secureAppSvc-template-bigiq",
+            "target": {
+              "address": "10.192.75.98"
+            },
             "k8s": {
                 "class": "Tenant",
                 "secureAppSvc": {
@@ -27,7 +30,7 @@ data:
                         "remark": "a5",
                         "profileAnalytics": {
                             "use": "Analytics_Profile"
-                        ,
+                        },
                         "virtualAddresses": [
                             "10.192.75.105"
                         ],
@@ -42,7 +45,7 @@ data:
                             "collectResponseCode": true,
                             "collectIp": false,
                             "class": "Analytics_Profile"
-                        ,
+                        },
                         "pool": "secure_ssl_waf_pool",
                         "securityLogProfiles": [
                             {
