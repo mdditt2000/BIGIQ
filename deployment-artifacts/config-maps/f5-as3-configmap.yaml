@@ -20,13 +20,29 @@ data:
                 "class": "Tenant",
                 "secureAppSvc": {
                     "class": "Application",
+                    "schemaOverlay": "AS3-as3-secureAppSvc-template-bigiq",
                     "template": "generic",
                     "a3_443_re_encrypt_waf_vs": {
                         "class": "Service_HTTPS",
                         "remark": "a5",
+                        "profileAnalytics": {
+                            "use": "Analytics_Profile"
+                        ,
                         "virtualAddresses": [
                             "10.192.75.105"
                         ],
+                        "Analytics_Profile": {
+                            "collectUserAgent": false,
+                            "collectClientSideStatistics": true,
+                            "collectGeo": false,
+                            "collectUrl": false,
+                            "collectPageLoadTime": false,
+                            "collectOsAndBrowser": false,
+                            "collectMethod": false,
+                            "collectResponseCode": true,
+                            "collectIp": false,
+                            "class": "Analytics_Profile"
+                        ,
                         "pool": "secure_ssl_waf_pool",
                         "securityLogProfiles": [
                             {
