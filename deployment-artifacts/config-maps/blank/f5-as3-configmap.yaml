@@ -1,0 +1,32 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: f5-as3-declaration
+  namespace: default
+  labels:
+    f5type: virtual-server
+    as3: "true"
+data:
+  template: |
+    {
+        "BIQ_AS3_DECLERATION": {
+            "applicationName": "CIS-BIQ-AS3-DEMO",
+            "applicationDescription": "CIS Integration with BIG IQ Demo Application",
+            "appSvcsDeclaration": {
+                "class": "AS3",
+                "persist": true,
+                "declaration": {
+                    "class": "ADC",
+                    "schemaVersion": "3.12.0",
+                    "target": {
+                        "address": "10.192.75.98"
+                    },
+                    "k8s": {
+                        "class": "Tenant",
+                        "secureAppSvc": {
+                        }
+                    }
+                }
+            }
+        }
+    }
