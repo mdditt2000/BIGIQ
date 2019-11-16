@@ -9,93 +9,87 @@ metadata:
 data:
   template: |
     {
-        "BIQ_AS3_DECLERATION": {
-            "applicationName": "CIS-BIQ-AS3-DEMO",
-            "applicationDescription": "CIS Integration with BIG IQ Demo Application",
-            "appSvcsDeclaration": {
-                "class": "AS3",
-                "persist": true,
-                "declaration": {
-                    "class": "ADC",
-                    "schemaVersion": "3.12.0",
-                    "target": {
-                        "address": "10.192.75.98"
-                    },
-                    "k8s": {
-                        "class": "Tenant",
-                        "secureAppSvc": {
-                            "class": "Application",
-                            "schemaOverlay": "AS3-as3-secureAppSvc-template-bigiq",
-                            "template": "generic",
-                            "a3_443_re_encrypt_waf_vs": {
-                                "class": "Service_HTTPS",
-                                "remark": "a5",
-                                "profileAnalytics": {
-                                    "use": "Analytics_Profile"
-                                },
-                                "virtualAddresses": [
-                                    "10.192.75.105"
-                                ],
-                                "Analytics_Profile": {
-                                    "collectUserAgent": false,
-                                    "collectClientSideStatistics": true,
-                                    "collectGeo": false,
-                                    "collectUrl": false,
-                                    "collectPageLoadTime": false,
-                                    "collectOsAndBrowser": false,
-                                    "collectMethod": false,
-                                    "collectResponseCode": true,
-                                    "collectIp": false,
-                                    "class": "Analytics_Profile"
-                                },
-                                "pool": "secure_ssl_waf_pool",
-                                "securityLogProfiles": [
-                                    {
-                                        "bigip": "/Common/Log all requests"
-                                    }
-                                ],
-                                "policyWAF": {
-                                    "use": "OWASPAutoTune"
-                                },
-                                "serverTLS": "frontside",
-                                "clientTLS": "backside"
-                            },
-                            "secure_ssl_waf_pool": {
-                                "class": "Pool",
-                                "monitors": [
-                                    "https"
-                                ],
-                                "members": [
-                                    {
-                                        "servicePort": 443,
-                                        "serverAddresses": [],
-                                        "shareNodes": true
-                                    }
-                                ]
-                            },
-                            "OWASPAutoTune": {
-                                "class": "WAF_Policy",
-                                "url": "https://raw.githubusercontent.com/mdditt2000/f5-as3-declarations/master/Common_WAF_Policy.xml",
-                                "ignoreChanges": true
-                            },
-                            "frontside": {
-                                "class": "TLS_Server",
-                                "certificates": [
-                                    {
-                                        "certificate": "webcert"
-                                    }
-                                ]
-                            },
-                            "backside": {
-                                "class": "TLS_Client"
-                            },
-                            "webcert": {
-                                "class": "Certificate",
-                                "remark": "in practice we recommend using a passphrase",
-                                "certificate": "-----BEGIN CERTIFICATE-----\nMIIDBTCCAe2gAwIBAgIJAIeZH9bDfnvCMA0GCSqGSIb3DQEBCwUAMBkxFzAVBgNV\nBAMMDnRlc3QubG9jYWxob3N0MB4XDTE4MDYyNTE5NDczN1oXDTE5MDYyNTE5NDcz\nN1owGTEXMBUGA1UEAwwOdGVzdC5sb2NhbGhvc3QwggEiMA0GCSqGSIb3DQEBAQUA\nA4IBDwAwggEKAoIBAQDJ7pzFDqVBMIFxLyaVdmlAXKluAFCM4552t4ZHzCmdkK3C\n8AMa2+wx8OH/CQ5YdCtbFVemIj5Ak3CsUyRM6GxFySIgFXvohpiOaqpNEoZYe9WR\n9GPV4RO8fd3ob726xHW3SpBSpXIPNVYKh0W1hG7fAY+02TGIhAUgNRFh+vHcxSVD\nBaTfs/Lw8juug5j4Em0OYovSYyuKG8NrGm82k4RzMDRrE0nHc9m4tpCG/+CdKejT\nj47+cm3x8IbGosaJjUMZEMHJXOaW24Npt2Q1LHBfBfgfUIi9TV5dcgb8gx8N0UDp\nbzJzbHoZyHHgPtYGv0lDJRIiondDpYT7L0L1+rJFAgMBAAGjUDBOMB0GA1UdDgQW\nBBQsJhZZ3nQmL7gEFBJXhx4zIUY29zAfBgNVHSMEGDAWgBQsJhZZ3nQmL7gEFBJX\nhx4zIUY29zAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQCFrjTMEmD5\n0ZFWcB55OwfT08mzJuo3keSmY9mWMNTIaTMimSmQ70Dtwd6lG/NA0XaqhcngIzou\n3I/big9v0SvHFHvLDqbICeLGlyRUWBV/GGzgTDC9CWOEMazhynv2JQhNPJPFWFTw\nCmcubA9foLtO0y7yhL826wTDY7U8njAJTuXAut4KNRMY5ijtFXuFBKbGACjqUbhK\nh5RfKQTeMzY4zOdi5wyKBl0ehJnxUD0mWq1z0omFjggWWm/G4/2pPdoP/Cxw9y0x\na0L6VuiYRf6RUNiLTIeQh5wthidfTHZtTgMGQ10dbLDSekb6bHX893bdpMg/PuyN\nZvPLluSXkkAo\n-----END CERTIFICATE-----",
-                                "privateKey": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDJ7pzFDqVBMIFx\nLyaVdmlAXKluAFCM4552t4ZHzCmdkK3C8AMa2+wx8OH/CQ5YdCtbFVemIj5Ak3Cs\nUyRM6GxFySIgFXvohpiOaqpNEoZYe9WR9GPV4RO8fd3ob726xHW3SpBSpXIPNVYK\nh0W1hG7fAY+02TGIhAUgNRFh+vHcxSVDBaTfs/Lw8juug5j4Em0OYovSYyuKG8Nr\nGm82k4RzMDRrE0nHc9m4tpCG/+CdKejTj47+cm3x8IbGosaJjUMZEMHJXOaW24Np\nt2Q1LHBfBfgfUIi9TV5dcgb8gx8N0UDpbzJzbHoZyHHgPtYGv0lDJRIiondDpYT7\nL0L1+rJFAgMBAAECggEAFBIlfuivwEUD+K4JFb4JRB5xsL9TQk21iHNBY42FbWXd\n/4w/osHNPkGFFQZfaKdTT+BVL+wjZ+O/xUEWUJahfGY7gBjikgAe1bkAaFy5Ab59\nQd6atb2Daq7QCbRhlVjFooxEwBI1vhE9FhrP8PTS2FOdZwpXhAwrPkJIEgcRVzIM\nCGJYTXcbziKrUgbYOrbdR772GSiFzq6uhdoIeavDnELRFGhFAOVXZEX2rRpB4rkl\npF92vKWN+2oiHaf566pATQyX+SYuTZT4tqrhpziuxlnYQFAbmIIaBZzMq6ldRY+Y\nzo0NUuL/G5urgSisefzYo+pM6+qJppU5I96ovRUhGQKBgQDmWiU70OE4QSjg9e1T\nV2WgyUKrdPPHWmQFsuxuslyy/4zygg6BDnUQlxQDkmhu7MxqNLtBioanhx4UR4V9\nZopR5jMPm3tKlV6er/Tu6DZtaHr+fJV/6d6oAwz/aYWzdWJKXASpxcUCuElnfXfk\nrDlbqJg3zyCD5H64Q3pBNqQwRwKBgQDgamT7QuEkRq4F4mVLTd3EElbnCpD+gmK6\nKVd9bGOR3QYBQMME4mdkESeBH6CuF/95h8GNWag7pnmRtYB+1amTTJyTOJCYKeqv\nmzM8jCRivFrFC837C/UtDNziJHofKPHRSkwe4p4xFreWu5aKIDqGr7w3OQpqzK9+\n8HbPdB97EwKBgGOWA1TZ2BSG7xJan9CRDym0+PLBLAc6h9WC5f5xc+wa2SeanISk\n6G1Us11b9XRHQZSE2ZPbPJ2+p31i8k4lf5UqrVaJBINZEkAOmBiVIbqpGctdtxBG\n3nDKaNsfFqNgEy9MmuN+0c58N5fbQXMGFgIPYEd4b3k11qb43SjGY7NPAoGBALhm\nVEGt68feGAKXy/n7qp0BIM1J/mhTBQLJE63o0Uw63ENNTrIFw0UTX22XanWDHJZk\n+aLHKBiTq1MSW9pcgLGbgxDpqs6NqtzO32QCF6fV85P0JjYB1l1FM37S0FIoV8NM\nlI3QUoItk39U9tbaspyXbEXIJgop1I6u0kGWvoNnAoGAZDs8N0+W3a2N8HDHY+Rr\nNeimHN470MJvIBMbvKY8rjEABUbGcyQc4PFiK3IL3hIykQ2j/ckmk0y1IBYkRuQ/\nuDazSoRSXTO1rvsLv6kO00nzbKIJt4YL6o98FOZeZk3JYM3Y8eecGJP/UrPcd5MQ\nawwK1vgGSShVY+12fDT8CuY=\n-----END PRIVATE KEY-----"
+        "class": "AS3",
+        "action": "deploy",
+        "declaration": {
+            "class": "ADC",
+            "schemaVersion": "3.12.0",
+            "target": {
+                "address": "10.192.75.98"
+            },
+            "k8s": {
+                "class": "Tenant",
+                "secureAppSvc": {
+                    "class": "Application",
+                    "schemaOverlay": "AS3-as3-secureAppSvc-template-bigiq",
+                    "template": "https",
+                    "serviceMain": {
+                        "profileAnalytics": {
+                            "use": "Analytics_Profile"
+                        },
+                        "policyWAF": {
+                            "use": "WAF_Policy"
+                        },
+                        "clientTLS": "TLS_Client",
+                        "serverTLS": "TLS_Server",
+                        "pool": "Pool",
+                        "virtualAddresses": [
+                            "10.192.75.105"
+                        ],
+                        "remark": "test",
+                        "securityLogProfiles": [
+                            {
+                                "bigip": "/Common/Log all requests"
                             }
-                        }
+                        ],
+                        "class": "Service_HTTPS"
+                    },
+                    "Analytics_Profile": {
+                        "collectUserAgent": false,
+                        "collectClientSideStatistics": true,
+                        "collectGeo": false,
+                        "collectUrl": false,
+                        "collectPageLoadTime": false,
+                        "collectOsAndBrowser": false,
+                        "collectMethod": false,
+                        "collectResponseCode": true,
+                        "collectIp": false,
+                        "class": "Analytics_Profile"
+                    },
+                    "Pool": {
+                        "members": [
+                            {
+                                "servicePort": 443,
+                                "adminState": "enable",
+                                "serverAddresses": []
+                            }
+                        ],
+                        "monitors": [
+                            "https"
+                        ],
+                        "class": "Pool"
+                    },
+                    "TLS_Client": {
+                        "class": "TLS_Client"
+                    },
+                    "TLS_Server": {
+                        "certificates": [
+                            {
+                                "certificate": "Certificate"
+                            }
+                        ],
+                        "class": "TLS_Server"
+                    },
+                    "WAF_Policy": {
+                        "url": "https://raw.githubusercontent.com/mdditt2000/f5-as3-declarations/master/Common_WAF_Policy.xml",
+                        "ignoreChanges": true,
+                        "class": "WAF_Policy"
+                    },
+                    "Certificate": {
+                        "certificate": "-----BEGIN CERTIFICATE-----\nMIID7TCCAtWgAwIBAgIJAJH4sMVzl1dMMA0GCSqGSIb3DQEBCwUAMIGMMQswCQYDVQQGEwJVUzETMBEGA1UECAwKV2FzaGluZ3RvbjEQMA4GA1UEBwwHU2VhdHRsZTELMAkGA1UECgwCRjUxDTALBgNVBAsMBFRlc3QxEzARBgNVBAMMCnRscy1zZXJ2ZXIxJTAjBgkqhkiG9w0BCQEWFnNvbWVib2R5QHNvbWV3aGVyZS5jb20wHhcNMTgwMjI4MTkwNzMyWhcNMjgwMjI2MTkwNzMyWjCBjDELMAkGA1UEBhMCVVMxEzARBgNVBAgMCldhc2hpbmd0b24xEDAOBgNVBAcMB1NlYXR0bGUxCzAJBgNVBAoMAkY1MQ0wCwYDVQQLDARUZXN0MRMwEQYDVQQDDAp0bHMtc2VydmVyMSUwIwYJKoZIhvcNAQkBFhZzb21lYm9keUBzb21ld2hlcmUuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwEMNPATg7Vz3jqInIVf2jnOi/9/HYIr8xZYgU0YHHFEiquQ6nYfX4mwezZ6zo9GJom7gHiQ3FNy3fN+RatatZmBmuyvJ+z/uZ6pbKmsuJLPLT89olO9JxMtb4a83oHDz3f6rcc2j8KwTr4lUDc452jLF4ZQ55O17s2tYMg4XW2G5DqUGzp1UKiClaDvpN23ZVOlnqDVpIlnVvJ1mz12AzFPny8xD1lhILv78yMltimdaWhyCLcFom0DbloRvYmowjGLHqLTAZ40jI3YUdw39LEqTXgfDF3DnOgZCIdRpouD9cVZBoQroXpVVfWG7sfzKLqWaAEHhjbhdK5l/p3mT7wIDAQABo1AwTjAdBgNVHQ4EFgQUBlCKIZ0+9DQ4ylW86qsyXoW8KjkwHwYDVR0jBBgwFoAUBlCKIZ0+9DQ4ylW86qsyXoW8KjkwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAuiE5MocznYDc+JHvEgSaiK9fyRBl/bitKTkiOtxWjEFpF5nH6QddV0pqQziXLb6iSbTBwlDJr9Bwzng8moOYbsD7hP2/mCKJj8o/lsRaPAk+abekWXRqYFNucct/ipBG3s+N2PH+MEpy3ioPH1OBuam6UomjE+mqoP09FrQha1hHEbabt4nN11l8fM5GW+0zRU0SwLFvnR58zUSlTMwczSPA0eUrhEU4AGPD/KN8d1fYnCcWqPF5ePcU11k7SNFl5PZQsgXv9cOc2Vq+qc/NmDBO0rQyKEAPDxbM8CK212G1M+ENTqmuePnr+mNope3AhEsqfH8IOPEoT7fIwmpqLw==\n-----END CERTIFICATE-----",
+                        "privateKey": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDAQw08BODtXPeOoichV/aOc6L/38dgivzFliBTRgccUSKq5Dqdh9fibB7NnrOj0YmibuAeJDcU3Ld835Fq1q1mYGa7K8n7P+5nqlsqay4ks8tPz2iU70nEy1vhrzegcPPd/qtxzaPwrBOviVQNzjnaMsXhlDnk7Xuza1gyDhdbYbkOpQbOnVQqIKVoO+k3bdlU6WeoNWkiWdW8nWbPXYDMU+fLzEPWWEgu/vzIyW2KZ1paHIItwWibQNuWhG9iajCMYseotMBnjSMjdhR3Df0sSpNeB8MXcOc6BkIh1Gmi4P1xVkGhCuhelVV9Ybux/MoupZoAQeGNuF0rmX+neZPvAgMBAAECggEAHm3eV9v7z4WRxtjiMZRO+Q/TQgUkdKK6y/jtR9DDClfLEVoK7ujTocnz/B48l1ZwHq3Gue6IazxdrB1kUhEFI7lpOQF+t83QCUc8o5OQG437RTfx+PSAa+21rpwBRVrrNfz7HIlsA4jwmq01CPRVUrQLfp7rpNBzbhu0u0Ngrf0ccOwXZkEUVvZ55WaPY1YADI9PBExQ2k04LvHJjoz/tJH3nsQLA/+90UXqy8ctUSMJ8Ko3crxJhnIO91BtCugkgS+U+pTEnvdAebE4pd7J5e6qqEyCu9F3DC5R6hH+K8bAj76VGwjxOr9a90o/js92HoCVAlQMHnW06Uk2RdIRmQKBgQD0uQPlA2PLBysWA+IQvd8oBfZuXWQjUZPBU9MK5k7bfuRbNeCA2kbTt1MVf15lv7vcwrwAbYo+Ur+L9CVL3lA8d/lQkz51r1ISChTPUiAMyU+CDDnXjQ1Gik/nC399AeluxS62Tur8hGPAb4rkVEyU60hPFVZTjmv13n81EjUoNwKBgQDJHyiPIgbwI+OoZYMUcGQrsr+yp1MdJrjpuFloc7+sdUpsvelyc146h3+TSAlhDce2BMH68kMUWUYHxHIooQjtDMu9S9b8VAF52F3E9osyjMzsywTri3hgBPy69j/Kr623gbZpbm6lYmdxRp/FKZyWtAbPts45GH1GPdv+9fUmCQKBgQCX7CfDy1fvWXLhBuYXuJfJs/HpT+bzmhgdA5nXgWRhFSRUj1zhASDJHFzi0qBakC3i/a1Soq4YxKwPCTECKXAsKdrHr7Etw/oyIroKfpRQ+8R1GnvqGbGtIf46k8PAaihtUNIP8Wwl+VYnx9c0qjSkmm/YUIm384mIKGlWHAiN/wKBgDV5bF5KLNASqsguXWDE1U1tFF0a8hVRI185HcSQ6gifku9Au14r4ITtW/U79QpyEISL1Uu0uDMj3WPZToUQ8/+bJFyrWnjymQXdimkBKFeDakUXYbKC/bmB+fR33tQ0S5r8CRUVQKQGevx6S6avfqvvJ9R4hXJW2ZAgiGrM2KaJAoGAPXuy4KHRmeeBZj8AT/shQ0VrDWIMNYDrhx0T6q9hVMahBS0SJaKDlQn6cSF7TX5N9PFAbwzcrvRKKfNjQVSZpQdR4l42f+N/5q0c1wihf43k9FgeYQ8jHGJ05uJnh3nj/O57FKgjlZ4FZVQdR8ieHN+rT4sHWj36a/FLHa6p1oo=\n-----END PRIVATE KEY-----",
+                        "remark": "test",
+                        "class": "Certificate"
                     }
                 }
             }
