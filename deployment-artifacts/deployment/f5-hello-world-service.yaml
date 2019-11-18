@@ -26,11 +26,11 @@ metadata:
     cis.f5.com/as3-tenant: k8s
     cis.f5.com/as3-app: secureAppSvc
     cis.f5.com/as3-pool: Pool
-  name: f5-hello-world-end-to-end-ssl-waf
+  name: f5-hello-world-end-to-end-ssl
   namespace: default
 spec:
   ports:
-  - name: f5-hello-world-end-to-end-ssl-waf
+  - name: f5-hello-world-end-to-end-ssl
     port: 443
     protocol: TCP
     targetPort: 443
