@@ -1,4 +1,7 @@
 # CIS integration with BIG-IQ
+
+**This GitHub repository has been archived and is read-only. This project is no longer actively maintained**
+
 This github page documents how to use BIG-IQ with CIS and some details on their integration.
 
 **Note** This integration of **BIG-IQ and CIS** is for early field trials/experimental and demo purpose. We would like to get some feedback and potentially make improvements. The integration has not gone through regression testing. 
